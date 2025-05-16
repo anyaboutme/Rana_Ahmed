@@ -1,0 +1,58 @@
+Unnormalized Form (UNF)
+we have a rough unnormalized Patient table like this:
+| PatientID | Name | Phone       | Appointments                         |
+| --------- | ---- | ----------- | ------------------------------------ |
+| P01       | Rana | 01012345678 | (A01, 2024-05-01), (A02, 2024-06-01) |
+Problem: Repeating/Multiple values in one column (PhoneNumbers).
+
+First Normal Form (1NF)
+Eliminate repeating groups and ensure atomicity (each column holds one value only).
+Fix: Split phone numbers into a separate table.
+
+| PatientID | Name | Phone       | AppointmentID | AppointmentDate |
+| --------- | ---- | ----------- | ------------- | --------------- |
+| P01       | Rana | 01012345678 | A01           | 2024-05-01      |
+| P01       | Rana | 01012345678 | A02           | 2024-06-01      |
+
+Second Normal Form (2NF)
+Eliminate partial dependency (only applies if there's a composite primary key).
+| PatientID | Name | Phone       |
+| --------- | ---- | ----------- |
+| P01       | Rana | 01012345678 |
+
+Patients Table| PatientID 
+| PatientID | Name | Phone       |
+| --------- | ---- | ----------- |
+| P01       | Rana | 01012345678 |
+
+Appointments Table
+| AppointmentID | PatientID | AppointmentDate |
+| ------------- | --------- | --------------- |
+| A01           | P01       | 2024-05-01      |
+| A02           | P01       | 2024-06-01      |
+
+Third Normal Form (3NF)
+Remove transitive dependency (when non-key column depends on another non-key column).
+| DoctorID | Name     | DeptID |
+| -------- | -------- | ------ |
+| D01      | Dr. Samy | DE01   |
+
+| DeptID | DeptName   |
+| ------ | ---------- |
+| DE01   | Cardiology |
+
+Final Normalized Structure (3NF):
+Patient(PatientID, Name, Gender, Address)
+
+PatientPhone(PhoneID, PatientID, PhoneNumber)
+
+Doctor(DoctorID, Name, Specialization, DeptID)
+
+Department(DeptID, DeptName, Location)
+
+Appointment(AppointmentID, PatientID, DoctorID, Date, Time, Status)
+
+Visit(VisitID, PatientID, DoctorID, VisitDate, Diagnosis, Treatment)
+
+Admin(AdminID, Username, Password)
+
