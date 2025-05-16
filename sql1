@@ -1,0 +1,123 @@
+CREATE TABLE Department (
+    DeptID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Floor INT
+);
+
+CREATE TABLE Doctor (
+    DoctorID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Specialty VARCHAR(100),
+    Phone VARCHAR(20),
+    Email VARCHAR(100),
+    DeptID INT,
+    FOREIGN KEY (DeptID) REFERENCES Department(DeptID)
+);
+
+CREATE TABLE Patient (
+    PatientID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Gender VARCHAR(10),
+    DOB DATE,
+    Phone VARCHAR(20),
+    Address VARCHAR(200)
+);
+
+CREATE TABLE Appointment (
+    AppID INT PRIMARY KEY,
+    PatientID INT,
+    DoctorID INT,
+    Date DATE,
+    Time TIME,
+    Status VARCHAR(50),
+    FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
+    FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID)
+);
+
+CREATE TABLE Visit (
+    VisitID INT PRIMARY KEY,
+    PatientID INT,
+    DoctorID INT,
+    Diagnosis TEXT,
+    Treatment TEXT,
+    Date DATE,
+    FOREIGN KEY (PatientID) REFERENCES Patient(PatientID),
+    FOREIGN KEY (DoctorID) REFERENCES Doctor(DoctorID)
+);
+
+CREATE TABLE Admin (
+    AdminID INT PRIMARY KEY,
+    Username VARCHAR(50),
+    Password VARCHAR(50)
+);
+
+-- Departments
+INSERT INTO Department VALUES
+(1, 'Cardiology', 1), (2, 'Neurology', 2), (3, 'Oncology', 3),
+(4, 'Orthopedics', 2), (5, 'Pediatrics', 1), (6, 'Dermatology', 4),
+(7, 'Radiology', 3), (8, 'Emergency', 1), (9, 'Surgery', 4), (10, 'ENT', 2);
+
+-- Doctors
+INSERT INTO Doctor VALUES
+(1, 'Dr. Ahmed', 'Cardiologist', '0111111111', 'ahmed@hospital.com', 1),
+(2, 'Dr. Mona', 'Neurologist', '0111111112', 'mona@hospital.com', 2),
+(3, 'Dr. Samir', 'Oncologist', '0111111113', 'samir@hospital.com', 3),
+(4, 'Dr. Lara', 'Orthopedic', '0111111114', 'lara@hospital.com', 4),
+(5, 'Dr. Hani', 'Pediatrician', '0111111115', 'hani@hospital.com', 5),
+(6, 'Dr. Reem', 'Dermatologist', '0111111116', 'reem@hospital.com', 6),
+(7, 'Dr. Omar', 'Radiologist', '0111111117', 'omar@hospital.com', 7),
+(8, 'Dr. Nour', 'Surgeon', '0111111118', 'nour@hospital.com', 9),
+(9, 'Dr. Yara', 'ENT Specialist', '0111111119', 'yara@hospital.com', 10),
+(10, 'Dr. Tamer', 'ER Doctor', '0111111120', 'tamer@hospital.com', 8);
+
+-- Patients
+INSERT INTO Patient VALUES
+(1, 'Ali', 'Male', '1990-05-20', '0100000001', 'Cairo'),
+(2, 'Sara', 'Female', '1985-07-15', '0100000002', 'Giza'),
+(3, 'Khaled', 'Male', '2000-03-10', '0100000003', 'Alexandria'),
+(4, 'Mariam', 'Female', '1995-12-25', '0100000004', 'Tanta'),
+(5, 'Hassan', 'Male', '1988-06-01', '0100000005', 'Mansoura'),
+(6, 'Nora', 'Female', '1978-11-30', '0100000006', 'Fayoum'),
+(7, 'Tarek', 'Male', '1992-09-18', '0100000007', 'Aswan'),
+(8, 'Aya', 'Female', '1999-01-01', '0100000008', 'Luxor'),
+(9, 'Ziad', 'Male', '1983-02-14', '0100000009', 'Cairo'),
+(10, 'Laila', 'Female', '1997-04-27', '0100000010', 'Beni Suef');
+
+-- Appointments
+INSERT INTO Appointment VALUES
+(1, 1, 1, '2025-05-20', '10:00:00', 'Scheduled'),
+(2, 2, 2, '2025-05-21', '11:00:00', 'Completed'),
+(3, 3, 3, '2025-05-22', '09:30:00', 'Scheduled'),
+(4, 4, 4, '2025-05-23', '14:00:00', 'Cancelled'),
+(5, 5, 5, '2025-05-24', '13:00:00', 'Scheduled'),
+(6, 6, 6, '2025-05-25', '15:30:00', 'Scheduled'),
+(7, 7, 7, '2025-05-26', '08:00:00', 'Completed'),
+(8, 8, 8, '2025-05-27', '16:00:00', 'Scheduled'),
+(9, 9, 9, '2025-05-28', '12:00:00', 'Completed'),
+(10, 10, 10, '2025-05-29', '10:30:00', 'Scheduled');
+
+-- Visits
+INSERT INTO Visit VALUES
+(1, 1, 1, 'High BP', 'Medication', '2025-05-20'),
+(2, 2, 2, 'Migraine', 'Rest + Meds', '2025-05-21'),
+(3, 3, 3, 'Cancer Screening', 'Tests done', '2025-05-22'),
+(4, 4, 4, 'Back Pain', 'Physiotherapy', '2025-05-23'),
+(5, 5, 5, 'Fever', 'Paracetamol', '2025-05-24'),
+(6, 6, 6, 'Acne', 'Ointment', '2025-05-25'),
+(7, 7, 7, 'X-ray', 'Normal', '2025-05-26'),
+(8, 8, 8, 'Surgery Follow-up', 'Healing well', '2025-05-27'),
+(9, 9, 9, 'Ear Infection', 'Antibiotics', '2025-05-28'),
+(10, 10, 10, 'Accident', 'Admitted', '2025-05-29');
+
+-- Admins
+INSERT INTO Admin VALUES
+(1, 'admin1', 'pass1'),
+(2, 'admin2', 'pass2'),
+(3, 'admin3', 'pass3'),
+(4, 'admin4', 'pass4'),
+(5, 'admin5', 'pass5'),
+(6, 'admin6', 'pass6'),
+(7, 'admin7', 'pass7'),
+(8, 'admin8', 'pass8'),
+(9, 'admin9', 'pass9'),
+(10, 'admin10', 'pass10');
