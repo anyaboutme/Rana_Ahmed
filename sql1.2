@@ -1,0 +1,31 @@
+
+SELECT * FROM Patient;
+SELECT * FROM Appointment WHERE PatientID = 1;
+
+SELECT d.* FROM Doctor d
+JOIN Department dp ON d.DeptID = dp.DeptID
+WHERE dp.Name = 'Cardiology';
+
+
+SELECT COUNT(*) AS TotalVisits FROM Visit WHERE DoctorID = 1;
+
+SELECT * FROM Appointment WHERE Status = 'Scheduled';
+
+SELECT * FROM Visit WHERE PatientID = 2;
+
+
+SELECT d.Name, d.Specialty, dp.Name AS Department
+FROM Doctor d
+JOIN Department dp ON d.DeptID = dp.DeptID;
+
+SELECT * FROM Appointment WHERE Date = CURDATE();
+
+
+SELECT * FROM Patient WHERE YEAR(CURDATE()) - YEAR(DOB) > 30;
+
+SELECT dp.Name AS Department, COUNT(DISTINCT p.PatientID) AS PatientCount
+FROM Appointment a
+JOIN Doctor d ON a.DoctorID = d.DoctorID
+JOIN Department dp ON d.DeptID = dp.DeptID
+JOIN Patient p ON a.PatientID = p.PatientID
+GROUP BY dp.Name;
